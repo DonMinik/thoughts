@@ -1,4 +1,6 @@
-# default
+# Thoughts
+
+An application to simply note down some thoughts or other stuff.
 
 ## Project setup
 

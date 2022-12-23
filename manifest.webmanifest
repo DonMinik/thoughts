@@ -1,0 +1,14 @@
+{
+    "background_color": "#1A374D",
+    "display": "...",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "143x143",
+            "type": "image/png"
+        }
+    ],
+    "name": "Thoughts",
+    "short_name": "Thoughts",
+    "start_url":"/thoughts/index.html"
+}
