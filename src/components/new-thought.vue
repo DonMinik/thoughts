@@ -13,7 +13,7 @@
         ></v-textarea>
     </v-container>
     <v-footer class="footer" color="secondary" >
-        <v-btn color="primary" @click="() => saveThought(this)">
+        <v-btn color="primary" @click="() => saveThought()">
             Save
         </v-btn>
     </v-footer>
@@ -26,6 +26,7 @@
     const thoughtList = useLocalStorage(StorageKeys.THOUGHTS, [], true);
     const emits = defineEmits([THOUGHT_LIST])
 
+    const _this = this;
 
     const props = defineProps<{thought: Thought}>();
     const title = ref(props.thought.title);
@@ -34,7 +35,7 @@
     const today = (new Date(Date.now())).toDateString()
   
 
-    function saveThought(_this: any) {
+    function saveThought() {
         if (!title.value) {
             title.value = today
         }   
