@@ -15,6 +15,7 @@ export default defineConfig({
       autoImport: true,
     }),
   ],
+  base: '/thoughts/',
   define: { 'process.env': {} },
   resolve: {
     alias: {
