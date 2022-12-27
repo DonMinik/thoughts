@@ -13,7 +13,7 @@
     ></v-textarea>
 </v-container>
   <v-footer class="footer" color="secondary" >
-    <v-btn color="primary" @click="saveThought">
+    <v-btn color="primary" @click="() => saveThought(this)">
         Save
     </v-btn>
 </v-footer>
@@ -22,8 +22,10 @@
     import useLocalStorage, {StorageKeys} from '@/utils/use-local-storage';
     import { Thought } from '@/utils/model'
     import { ref, toRef } from 'vue'
+    import { THOUGHT_LIST } from '@/utils/navigation.types'
+    const thoughtList = useLocalStorage(StorageKeys.THOUGHTS, []);
+    const emits = defineEmits([THOUGHT_LIST])
 
-    let thoughtList = useLocalStorage(StorageKeys.THOUGHTS, []);
 
     const props = defineProps<{thought: Thought}>();
     const title = ref(props.thought.title);
@@ -32,7 +34,7 @@
     const today = (new Date(Date.now())).toDateString()
   
 
-    function saveThought() {
+    function saveThought(_this: any) {
         if (!title.value) {
             title.value = today
         }   
@@ -45,6 +47,11 @@
             text: text.value
         })
         thoughtList.value = updatedThoughtList
+        goBack(_this)
+    }
+
+    function goBack (foo: any) {
+        return foo.$emit(THOUGHT_LIST)
     }
 </script>
 

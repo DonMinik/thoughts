@@ -6,11 +6,11 @@
     <v-main>
       
       <ThoughtList v-if="navigationState === NavigationState.THOUGHT_LIST" @edit_thought="editThought"></ThoughtList>
-      <NewThought v-if="navigationState === NavigationState.NEW_THOUGHT" :thought="activeThought"></NewThought>
+      <NewThought v-if="navigationState === NavigationState.NEW_THOUGHT" :thought="activeThought" @thought_list="toThoughtList"></NewThought>
     </v-main>
 
     <v-bottom-navigation :elevation="2">
-      <v-btn @click="navigationState = NavigationState.THOUGHT_LIST">
+      <v-btn @click="toThoughtList">
         <v-icon>mdi-list-box</v-icon>
         Thoughts
       </v-btn>
@@ -32,8 +32,14 @@
   import { NavigationState} from '@/utils/navigation.types'
   let navigationState = ref(NavigationState.THOUGHT_LIST);
   let activeThought: Ref<Thought> = ref({id: crypto.randomUUID()});
+  
   function editThought(event: Thought) {
     activeThought.value = event;
     navigationState.value = NavigationState.NEW_THOUGHT;
+  }
+
+  function toThoughtList() {
+    activeThought.value = {id: crypto.randomUUID()},
+    navigationState.value = NavigationState.THOUGHT_LIST
   }
 </script>
