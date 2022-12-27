@@ -1,7 +1,13 @@
 <template>
   <v-app>
     <v-app-bar elevation="2" color="secondary">
+    
         <v-app-bar-title>Thoughts</v-app-bar-title>
+        <template v-slot:append>
+          <v-btn icon @click="download">
+            <v-icon>mdi-file-download</v-icon>
+          </v-btn>
+        </template>
       </v-app-bar>
     <v-main>
       
@@ -30,8 +36,13 @@
   import {ref, Ref} from 'vue'
   import { Thought } from '@/utils/model'
   import { NavigationState} from '@/utils/navigation.types'
-  let navigationState = ref(NavigationState.THOUGHT_LIST);
-  let activeThought: Ref<Thought> = ref({id: crypto.randomUUID()});
+  import { saveFile } from './utils/file-saver'
+  import useLocalStorage, { StorageKeys } from './utils/use-local-storage'
+
+  const thoughts: Ref<Thought[]> = useLocalStorage(StorageKeys.THOUGHTS, [])
+
+  const navigationState = ref(NavigationState.THOUGHT_LIST);
+  const activeThought: Ref<Thought> = ref({id: crypto.randomUUID()});
   
   function editThought(event: Thought) {
     activeThought.value = event;
@@ -41,5 +52,9 @@
   function toThoughtList() {
     activeThought.value = {id: crypto.randomUUID()},
     navigationState.value = NavigationState.THOUGHT_LIST
+  }
+
+  function download() {
+      saveFile(navigationState.value ===  NavigationState.NEW_THOUGHT ? [activeThought.value] : thoughts.value, 'thoughts')
   }
 </script>
