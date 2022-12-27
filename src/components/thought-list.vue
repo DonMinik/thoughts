@@ -39,7 +39,7 @@
     import { ref, Ref } from 'vue'
     const emit = defineEmits([EDIT_THOUGHT])
 
-    const thoughts: Ref<Thought[]> = useLocalStorage(StorageKeys.THOUGHTS, [])
+    const thoughts: Ref<Thought[]> = useLocalStorage(StorageKeys.THOUGHTS, [], true)
 
     const swipeDirection = ref('none')
     const isShowDeleteAnimation = ref('0')

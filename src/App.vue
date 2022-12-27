@@ -39,7 +39,7 @@
   import { saveFile } from './utils/file-saver'
   import useLocalStorage, { StorageKeys } from './utils/use-local-storage'
 
-  const thoughts: Ref<Thought[]> = useLocalStorage(StorageKeys.THOUGHTS, [])
+  const thoughts: Ref<Thought[]> = useLocalStorage(StorageKeys.THOUGHTS, [], true)
 
   const navigationState = ref(NavigationState.THOUGHT_LIST);
   const activeThought: Ref<Thought> = ref({id: crypto.randomUUID()});
