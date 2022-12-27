@@ -18,3 +18,7 @@ export default function (key: string, defaultValue: unknown):Ref {
         },
     }))
 }
+
+export const StorageKeys = {
+    THOUGHTS: 'thoughts'
+}

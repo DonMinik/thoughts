@@ -5,7 +5,7 @@
     :key="item.id"
     :title="item.title"
     :subtitle="item.subtitle"
-    @click="$emit(EDIT_THOUGHT, item?.id)"
+    @click="$emit(EDIT_THOUGHT, item)"
     >
     <template v-slot:append>
           <v-icon small color="accent"
@@ -17,22 +17,11 @@
 </template>
 <script setup lang='ts'>
     import { EDIT_THOUGHT } from '@/utils/navigation.types'
+import useLocalStorage, {StorageKeys} from '@/utils/use-local-storage';
     
     const emit = defineEmits([EDIT_THOUGHT])
 
-    const thoughts = [
-        {
-            title: 'Sometimes I think of...',
-            subtitle: 'but then not',
-            id: 1
-        },
-        { type: 'divider'},
-        {
-            title: 'Sometimes I think of...',
-            subtitle: 'but then not',
-            id: 2
-        },
-    ]
+    const thoughts = useLocalStorage(StorageKeys.THOUGHTS, [])
 </script>
 <style>
 span {

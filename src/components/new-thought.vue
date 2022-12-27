@@ -1,17 +1,17 @@
 <template>
 
-<v-responsive 
-    class="overflow-y-auto edit-area"
+<v-container 
+    class="edit-area"
   >
-    <v-text-field :model-value="props.thought.title">
+    <v-text-field label="Title" :placeholder="today" v-model="title">
         
     </v-text-field>
-    <v-textarea
+    <v-textarea class="thought-text"
         placeholder="Please enter your thoughts"
-      no-resize auto-grow
-      :model-value="props.thought.text"
+      no-resize density="compact"
+      v-model="text"
     ></v-textarea>
-</v-responsive>
+</v-container>
   <v-footer class="footer" color="secondary" >
     <v-btn color="primary" @click="saveThought">
         Save
@@ -19,42 +19,47 @@
 </v-footer>
 </template>
 <script setup lang="ts">
-    import useLocalStorage from '@/utils/use-local-storage';
+    import useLocalStorage, {StorageKeys} from '@/utils/use-local-storage';
     import { Thought } from '@/utils/model'
-    import { ref } from 'vue'
+    import { ref, toRef } from 'vue'
 
-    let thoughtList = useLocalStorage('thoughts', []);
+    let thoughtList = useLocalStorage(StorageKeys.THOUGHTS, []);
 
     const props = defineProps<{thought: Thought}>();
-
+    const title = ref(props.thought.title);
+    const text = ref(props.thought.text)
+    
+    const today = (new Date(Date.now())).toDateString()
   
 
     function saveThought() {
-        if (!props.thought.title) {
-            props.thought.title = (new Date(Date.now())).toDateString()
+        if (!title.value) {
+            title.value = today
         }   
-        const updatedThoughtList = thoughtList.value;
+        let updatedThoughtList = thoughtList.value;
             
-        if(props.thought.id) {
-            let existingThought = updatedThoughtList.find((entry: Thought) => entry.id = props.thought.id)
-            existingThought = props.thought;
-             } else {
-                props.thought.id = crypto.randomUUID()
-                updatedThoughtList.push(props.thought)
-             } 
-             thoughtList.value = updatedThoughtList
-       
-
+        updatedThoughtList = updatedThoughtList.filter((entry: Thought) => entry.id != props.thought.id)
+        updatedThoughtList.push({
+            id: props.thought.id,
+            title: title.value,
+            text: text.value
+        })
+        thoughtList.value = updatedThoughtList
     }
 </script>
 
 <style>
 .edit-area {
-    height: 80%
+    height: 85%
+}
+
+.thought-text {
+    height: 100%;
 }
 
 .footer {
-    height: 20%;
+    height: 15%;
+    display: flex;
     align-content: center;
 }
 </style>
