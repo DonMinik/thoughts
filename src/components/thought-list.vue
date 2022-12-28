@@ -22,6 +22,7 @@
     </template>
     </v-list-item>
  </v-list>
+
  <v-dialog v-model="showConfirmationDialog" >
     <v-card  >
         <span>Are you shure you want to delete this thought?</span>

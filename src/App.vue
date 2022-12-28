@@ -1,16 +1,19 @@
 <template>
   <v-app>
     <v-app-bar elevation="2" color="secondary">
-    
-        <v-app-bar-title>Thoughts</v-app-bar-title>
-        <template v-slot:append>
-          <v-btn icon @click="download">
-            <v-icon>mdi-file-download</v-icon>
-          </v-btn>
-        </template>
-      </v-app-bar>
+      <template v-slot:prepend>
+        <v-icon size="x-large" color="primary"  >
+          mdi-thought-bubble
+        </v-icon>
+      </template>
+      <v-app-bar-title>Thoughts</v-app-bar-title>
+      <template v-slot:append>
+        <v-btn icon @click="download">
+          <v-icon>mdi-file-download</v-icon>
+        </v-btn>
+      </template>
+    </v-app-bar>
     <v-main>
-      
       <ThoughtList v-if="navigationState === NavigationState.THOUGHT_LIST" @edit_thought="editThought"></ThoughtList>
       <NewThought v-if="navigationState === NavigationState.NEW_THOUGHT" :thought="activeThought" @thought_list="toThoughtList"></NewThought>
     </v-main>
