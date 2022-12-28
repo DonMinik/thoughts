@@ -1,9 +1,11 @@
 {
-    "background_color": "#1A374D",
+    "background_color": "#3F3B6C",
+    "description": "Write down your thoughts.",
+    "display": "fullscreen",
     "icons": [
         {
             "src": "icon.png",
-            "sizes": "143x143",
+            "sizes": "84x84",
             "type": "image/png"
         }
     ],
