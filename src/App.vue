@@ -8,11 +8,24 @@
       </template>
       <v-app-bar-title>Thoughts</v-app-bar-title>
       <template v-slot:append>
-        <v-btn icon @click="download">
+        <v-btn icon @click="showConfirmationDialog = true">
           <v-icon>mdi-file-download</v-icon>
         </v-btn>
       </template>
     </v-app-bar>
+
+    <v-dialog v-model="showConfirmationDialog" >
+      <v-card>
+        <v-text-field v-model="fileName" label="File Name" placeholder="Please enter a file name.">
+          
+        </v-text-field>
+        <v-card-actions class="actions">
+          <v-btn color="secondary" @click="showConfirmationDialog = false" variant="outlined">Close</v-btn>
+          <v-btn color="primary" @click="download" variant="flat">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-main>
       <ThoughtList v-if="navigationState === NavigationState.THOUGHT_LIST" @edit_thought="editThought"></ThoughtList>
       <NewThought v-if="navigationState === NavigationState.NEW_THOUGHT" :thought="activeThought" @thought_list="toThoughtList"></NewThought>
@@ -46,7 +59,8 @@
 
   const navigationState = ref(NavigationState.THOUGHT_LIST);
   const activeThought: Ref<Thought> = ref({id: crypto.randomUUID()});
-  
+  const showConfirmationDialog = ref(false)
+  const fileName = ref(undefined)
   function editThought(event: Thought) {
     activeThought.value = event;
     navigationState.value = NavigationState.NEW_THOUGHT;
@@ -58,6 +72,8 @@
   }
 
   function download() {
-      saveFile(navigationState.value ===  NavigationState.NEW_THOUGHT ? [activeThought.value] : thoughts.value, 'thoughts')
+      saveFile(navigationState.value ===  NavigationState.NEW_THOUGHT ? [activeThought.value] : thoughts.value, fileName.value ?? 'thoughts')
+      fileName.value = undefined
+      showConfirmationDialog.value = false
   }
 </script>

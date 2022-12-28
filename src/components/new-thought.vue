@@ -66,6 +66,7 @@
 .save-btn {
     position: absolute;
     width: 100%;
+    top: 80vh;
 }
 .save-btn .v-btn {
     margin-left: auto;

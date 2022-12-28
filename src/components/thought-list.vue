@@ -1,37 +1,37 @@
 <template>
- <v-list :items="thoughts" lines="three" item-props  bg-color="background">
-    <v-list-item
-    v-for="item in thoughts"
-    :key="item.id"
-    :title="item.title"
-    :subtitle="item.text"
-    :class="isShowDeleteAnimation === item.id ? 'delete-entry' : undefined"
-    v-touch="{
-      start: (event: any) => swipeToDelete(event, item),
-      end: (event: any) =>  endSwipe(event, item)
-    }"
-    @click="$emit(EDIT_THOUGHT, item)"
-    >
-    <template v-slot:prepend v-if="isShowDeleteAnimation === item.id" >
-          <v-icon small 
-          >mdi-delete</v-icon>
-    </template>
-    <template v-slot:append>
-          <v-icon small color="accent"
-          >mdi-lead-pencil</v-icon>
-    </template>
-    </v-list-item>
- </v-list>
+    <v-list :items="thoughts" lines="three" item-props  bg-color="background">
+        <v-list-item
+        v-for="item in thoughts"
+        :key="item.id"
+        :title="item.title"
+        :subtitle="item.text"
+        :class="isShowDeleteAnimation === item.id ? 'delete-entry' : undefined"
+        v-touch="{
+        start: (event: any) => swipeToDelete(event, item),
+        end: (event: any) =>  endSwipe(event, item)
+        }"
+        @click="$emit(EDIT_THOUGHT, item)"
+        >
+        <template v-slot:prepend v-if="isShowDeleteAnimation === item.id" >
+            <v-icon small 
+            >mdi-delete</v-icon>
+        </template>
+        <template v-slot:append>
+            <v-icon small color="accent"
+            >mdi-lead-pencil</v-icon>
+        </template>
+        </v-list-item>
+    </v-list>
 
- <v-dialog v-model="showConfirmationDialog" >
-    <v-card  >
-        <span>Are you shure you want to delete this thought?</span>
-        <v-card-actions class="actions">
-            <v-btn color="secondary" @click="cancelDeleteAction" variant="outlined">Close</v-btn>
-            <v-btn color="destructive" @click="deleteThought" variant="flat">Delete</v-btn>
-        </v-card-actions>
-    </v-card>
- </v-dialog>
+    <v-dialog v-model="showConfirmationDialog" >
+        <v-card  >
+            <span>Are you shure you want to delete this thought?</span>
+            <v-card-actions class="actions">
+                <v-btn color="secondary" @click="cancelDeleteAction" variant="outlined">Close</v-btn>
+                <v-btn color="destructive" @click="deleteThought" variant="flat">Delete</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 <script setup lang='ts'>
     import { EDIT_THOUGHT } from '@/utils/navigation.types'
