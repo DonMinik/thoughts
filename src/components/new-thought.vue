@@ -62,7 +62,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .save-btn {
     position: absolute;
     width: 100%;

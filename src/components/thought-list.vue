@@ -12,7 +12,7 @@
         }"
         @click="$emit(EDIT_THOUGHT, item)"
         >
-        <template v-slot:prepend v-if="isShowDeleteAnimation === item.id" >
+        <template v-slot:prepend v-if="isShowDeleteAnimation === item.id"   >
             <v-icon small 
             >mdi-delete</v-icon>
         </template>
@@ -25,7 +25,7 @@
 
     <v-dialog v-model="showConfirmationDialog" >
         <v-card  >
-            <span>Are you shure you want to delete this thought?</span>
+            <span class="confirmation-hint">Are you shure you want to delete this thought?</span>
             <v-card-actions class="actions">
                 <v-btn color="secondary" @click="cancelDeleteAction" variant="outlined">Close</v-btn>
                 <v-btn color="destructive" @click="deleteThought" variant="flat">Delete</v-btn>
@@ -79,13 +79,10 @@
         showConfirmationDialog.value = false
     }
 </script>
-<style>
-span {
+<style scoped>
+.confirmation-hint {
   margin: 1rem 
 }
-</style>
-
-<style>
 .list.v-list-item {
     background-color: #3F3B6C;
 }
@@ -100,12 +97,15 @@ span {
     padding-left: 0 !important;
 }
 
-.delete-entry .v-list-item__prepend{
-    background-color:  #EB455F;
-    height:4rem;
-    width:4rem;
-    margin-right: 1rem;
-    padding:1rem;
-}
 
+</style>
+<!-- warning this is unscoped style-->
+<style>
+    .delete-entry .v-list-item__prepend{
+        background-color:  #EB455F;
+        height:4rem;
+        width:4rem;
+        margin-right: 1rem;
+        padding:1rem;
+    }
 </style>
