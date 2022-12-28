@@ -13,7 +13,9 @@
         ></v-textarea>
     </v-container>
     <v-footer class="footer" color="secondary" >
-        <v-btn color="primary" @click="() => saveThought()">
+        <v-btn color="primary" @click="() => {
+            saveThought(); $emit(THOUGHT_LIST);
+            }">
             Save
         </v-btn>
     </v-footer>
@@ -48,12 +50,8 @@
             text: text.value
         })
         thoughtList.value = updatedThoughtList
-        goBack(_this)
     }
 
-    function goBack (foo: any) {
-        return foo.$emit(THOUGHT_LIST)
-    }
 </script>
 
 <style>
