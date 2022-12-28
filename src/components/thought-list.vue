@@ -25,7 +25,7 @@
  <v-dialog v-model="showConfirmationDialog" >
     <v-card  >
         <span>Are you shure you want to delete this thought?</span>
-        <v-card-actions>
+        <v-card-actions class="actions">
             <v-btn color="secondary" @click="cancelDeleteAction" variant="outlined">Close</v-btn>
             <v-btn color="destructive" @click="deleteThought" variant="flat">Delete</v-btn>
         </v-card-actions>
@@ -87,6 +87,11 @@ span {
 <style>
 .list.v-list-item {
     background-color: #3F3B6C;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
 }
 
 .delete-entry {

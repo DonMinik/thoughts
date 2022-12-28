@@ -12,13 +12,21 @@
         v-model="text"
         ></v-textarea>
     </v-container>
-    <v-footer class="footer" color="secondary" >
+
+
+   <div  class='save-btn'> <v-btn color="primary" @click="() => {
+            saveThought(); $emit(THOUGHT_LIST);
+            }">
+            Save
+    </v-btn>
+    </div>
+  <!---  <v-footer class="footer" color="secondary" >
         <v-btn color="primary" @click="() => {
             saveThought(); $emit(THOUGHT_LIST);
             }">
             Save
         </v-btn>
-    </v-footer>
+    </v-footer> -->
 </template>
 <script setup lang="ts">
     import useLocalStorage, {StorageKeys} from '@/utils/use-local-storage';
@@ -55,8 +63,18 @@
 </script>
 
 <style>
+.save-btn {
+    position: absolute;
+    width: 100%;
+}
+.save-btn .v-btn {
+    margin-left: auto;
+    margin-right: 4rem;
+    float: right;
+}
+
 .edit-area {
-    height: 85%
+    height: 100%
 }
 
 .thought-text {
